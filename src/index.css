@@ -2,7 +2,7 @@ article.single-comment {
   display: flex;
   justify-content: left;
   gap:1em;
- 
+ min-height: 5rem;
 }
 article.single-comment.parent{
   border-bottom: 1px solid teal;
@@ -56,4 +56,20 @@ article.single-comment.child  {
   border-radius: 5px;
 
 
+}
+form.main-comment-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+form.main-comment-form textarea {
+  height: 4rem;
+  width: 30rem;
+  padding: 10px;
+}
+form.main-comment-form button{
+  width: 5rem;
+    height: 2rem;
+    margin-top: 1em;
+    margin-bottom: 1em;
 }

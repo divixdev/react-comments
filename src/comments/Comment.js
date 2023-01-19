@@ -11,7 +11,7 @@ const Comment= ({comment,commentsReplies,})=>{
                     <p>{comment.body}</p>
                      {
                         commentsReplies.map(reply=>(
-                    <article  className="single-comment child"  >
+                    <article  className="single-comment child" key={reply.id} >
                     <div className="comment-heading">
                        <img src="/user-icon.png" alt="user" />
                        <span> {reply.username}  </span>
