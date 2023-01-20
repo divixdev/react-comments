@@ -1,4 +1,10 @@
-const Comment= ({comment,commentsReplies,})=>{
+const Comment= ({comment,commentsReplies,currentUserId,activeComment,setActiveComment})=>{
+    let timeToAct = 180000;
+    let isLateToAct = new Date() - new Date(comment.createdAt) > timeToAct ;
+    const canDelete = currentUserId === comment.userId && !isLateToAct ;
+    const canEdit = currentUserId === comment.userId && !isLateToAct ;
+    const canReply = Boolean(currentUserId)
+
     return (
         <article className="single-comment parent"  >
            <div className="comment-heading">
@@ -9,6 +15,11 @@ const Comment= ({comment,commentsReplies,})=>{
            </div>
                 <div className="comment-body">
                     <p>{comment.body}</p>
+                    <div className="interactions">
+                            { canEdit && <span>edit</span> }
+                            {canReply && <span>Repy</span>}
+                         { canDelete &&    <span>Delete</span> }
+                    </div>
                      {
                         commentsReplies.map(reply=>(
                     <article  className="single-comment child" key={reply.id} >
@@ -19,6 +30,12 @@ const Comment= ({comment,commentsReplies,})=>{
                     </div>
                     <div className="comment-body">
                         {reply.body}
+                    </div>
+                    <div className="interactions">
+                            <span>Edit</span>
+                            <span>Repy</span>
+                       { canDelete &&    <span>Delete</span> }
+
                     </div>
                     </article>
                         ))

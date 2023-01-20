@@ -3,8 +3,9 @@ import { createComment, getComments } from "../api"
 import Comment from "./Comment"
 import CommentForm from "./CommentForm";
 
-const Comments= ()=>{
+const Comments= ({currentUserId})=>{
     let [cmtsFromBackend,setCmtsFromBackend]= useState([]);
+    let [activeComment,setActiveComment] = useState(null);
     useEffect(()=>{
         getComments().then(data=> setCmtsFromBackend(data) )
     },[])
@@ -31,6 +32,9 @@ const Comments= ()=>{
          comment={parentComment} 
          key={parentComment.id }
          commentsReplies={commentsReplies(parentComment.id)}
+         activeComment={activeComment}
+         setActiveComment={setActiveComment}
+         currentUserId={currentUserId}
           /> ) }
         </section>
         

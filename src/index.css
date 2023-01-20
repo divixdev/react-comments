@@ -73,3 +73,19 @@ form.main-comment-form button{
     margin-top: 1em;
     margin-bottom: 1em;
 }
+.interactions{
+  display: flex;
+  gap: 5px;
+  align-items: end;
+}
+.interactions span{
+ padding: 8px;
+ border-radius: 4px;
+ background-color: #ccc;
+ color: teal;
+ transition: all .2s ease;
+ cursor: pointer;
+}
+.interactions span:hover{
+  background-color: #FF8B13;
+}
