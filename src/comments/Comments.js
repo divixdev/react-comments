@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { createComment, getComments ,deleteComment as deleteComentApi } from "../api"
+import { createComment, getComments ,deleteComment as deleteComentApi,updateComment as updateCommentApi } from "../api"
 import Comment from "./Comment"
 import CommentForm from "./CommentForm";
 
@@ -31,6 +31,21 @@ const Comments= ({currentUserId})=>{
         })
       }
 
+     const updateComment = (text,cmtId)=>{
+       updateCommentApi().then(()=>{
+        let updatedCmts =  cmtsFromBackend.map(cmt=> {
+                if(cmt.id === cmtId){
+                  return {...cmt,body:text}
+                }
+                return cmt
+
+            })
+            setCmtsFromBackend(updatedCmts)
+            setActiveComment(null)
+
+        })
+     }
+
 
     return (
         <section className="comments-section">
@@ -46,6 +61,7 @@ const Comments= ({currentUserId})=>{
          currentUserId={currentUserId}
          deleteComment={deleteComment}
          addComment={addComment}
+         updateComment={updateComment}
           /> ) }
         </section>
         
