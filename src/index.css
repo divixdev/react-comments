@@ -89,3 +89,8 @@ form.main-comment-form button{
 .interactions span:hover{
   background-color: #FF8B13;
 }
+
+button:disabled{
+  background-color: #ccc;
+  color: #888;
+}

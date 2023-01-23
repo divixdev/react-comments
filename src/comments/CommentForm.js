@@ -1,10 +1,12 @@
 import { useState } from "react"
 
 const CommentForm= ({actionName,handleSubmit})=>{
-    const [text,setText] = useState('')
+    const [text, setText] = useState("");
+    const isDisabled = text.length === 0 ;
   function onSubmiting(e){
     e.preventDefault()
     handleSubmit(text)
+    setText('')
 
   }
     return (
@@ -15,7 +17,7 @@ const CommentForm= ({actionName,handleSubmit})=>{
             
             ></textarea>
             
-         <button type="submit"> {actionName} </button>
+         <button type="submit" disabled={isDisabled}> {actionName} </button>
         </form>
     )
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { createComment, getComments } from "../api"
+import { createComment, getComments ,deleteComment as deleteComentApi } from "../api"
 import Comment from "./Comment"
 import CommentForm from "./CommentForm";
 
@@ -20,7 +20,14 @@ const Comments= ({currentUserId})=>{
         console.log('add comment of handle submit');
         createComment(text,parentId).then(comment=> setCmtsFromBackend([comment,...cmtsFromBackend])  )
      }
-
+      const deleteComment = (cmtId)=>{
+        deleteComentApi().then(()=> {
+            let updatedComments = cmtsFromBackend.filter(cmtFromBackend=> cmtFromBackend.id !== cmtId );
+            if(window.confirm("Are you sure?")){
+                setCmtsFromBackend(updatedComments)
+            }
+        })
+      }
 
 
     return (
@@ -35,6 +42,8 @@ const Comments= ({currentUserId})=>{
          activeComment={activeComment}
          setActiveComment={setActiveComment}
          currentUserId={currentUserId}
+         deleteComment={deleteComment}
+         addComment={addComment}
           /> ) }
         </section>
         

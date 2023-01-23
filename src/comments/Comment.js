@@ -1,9 +1,14 @@
-const Comment= ({comment,commentsReplies,currentUserId,activeComment,setActiveComment})=>{
+import CommentForm from "./CommentForm";
+
+const Comment= ({comment,commentsReplies,currentUserId,activeComment,setActiveComment,deleteComment,addComment,parentId=null})=>{
     let timeToAct = 180000;
     let isLateToAct = new Date() - new Date(comment.createdAt) > timeToAct ;
     const canDelete = currentUserId === comment.userId && !isLateToAct ;
     const canEdit = currentUserId === comment.userId && !isLateToAct ;
-    const canReply = Boolean(currentUserId)
+    const canReply = Boolean(currentUserId);
+    const isReplying = activeComment && activeComment.type === 'replying' && activeComment.id === comment.id
+    const replyId = parentId? parentId : comment.id
+   
 
     return (
         <article className="single-comment parent"  >
@@ -17,27 +22,20 @@ const Comment= ({comment,commentsReplies,currentUserId,activeComment,setActiveCo
                     <p>{comment.body}</p>
                     <div className="interactions">
                             { canEdit && <span>edit</span> }
-                            {canReply && <span>Repy</span>}
-                         { canDelete &&    <span>Delete</span> }
+                            {canReply && <span onClick={()=> setActiveComment({id:comment.id,type:"replying"}) }>Repy</span>}
+                         { canDelete &&    <span onClick={(cmtId)=>deleteComment(comment.id)}>Delete</span> }
                     </div>
-                     {
-                        commentsReplies.map(reply=>(
-                    <article  className="single-comment child" key={reply.id} >
-                    <div className="comment-heading">
-                       <img src="/user-icon.png" alt="user" />
-                       <span> {reply.username}  </span>
-                       <time> { new Date(reply.createdAt).toLocaleDateString() } </time>
-                    </div>
-                    <div className="comment-body">
-                        {reply.body}
-                    </div>
-                    <div className="interactions">
-                            <span>Edit</span>
-                            <span>Repy</span>
-                       { canDelete &&    <span>Delete</span> }
+                    <div className="reply-form">
+                        { isReplying &&  
+                        <CommentForm 
+                        actionName='replying' 
+                        handleSubmit={(text)=> addComment(text,replyId) }
+                         /> }
 
                     </div>
-                    </article>
+                     {
+                      commentsReplies.map(reply=>(
+                    <Comment replies={[]} comment={reply} key={reply.id} currentUserId={currentUserId}/>
                         ))
                      }
                 </div>
