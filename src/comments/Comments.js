@@ -5,7 +5,8 @@ import CommentForm from "./CommentForm";
 
 const Comments= ({currentUserId})=>{
     let [cmtsFromBackend,setCmtsFromBackend]= useState([]);
-    let [activeComment,setActiveComment] = useState(null);
+    let [activeComment,setActiveComment] = useState(null)
+
     useEffect(()=>{
         getComments().then(data=> setCmtsFromBackend(data) )
     },[])
@@ -19,6 +20,7 @@ const Comments= ({currentUserId})=>{
      const addComment = (text,parentId)=>{
         console.log('add comment of handle submit');
         createComment(text,parentId).then(comment=> setCmtsFromBackend([comment,...cmtsFromBackend])  )
+        setActiveComment(null)
      }
       const deleteComment = (cmtId)=>{
         deleteComentApi().then(()=> {
