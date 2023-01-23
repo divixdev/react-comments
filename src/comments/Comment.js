@@ -35,7 +35,14 @@ const Comment= ({comment,commentsReplies,currentUserId,activeComment,setActiveCo
                     </div>
                      {
                       commentsReplies.map(reply=>(
-                    <Comment replies={[]} comment={reply} key={reply.id} currentUserId={currentUserId}/>
+                     <Comment 
+                       comment={reply} 
+                        key={reply.id }
+                        commentsReplies={[]}
+                        
+                        currentUserId={currentUserId}
+                      
+                      />
                         ))
                      }
                 </div>
